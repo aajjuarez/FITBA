@@ -1,0 +1,16 @@
+{
+"type": "FeatureCollection",
+"name": "celdas_sanitarias",
+"features": [
+{ "type": "Feature", "properties": { "fid": 1.0, "id": 2.0, "cod_indec": "6854", "id_cs": "cs1", "municipio": "25 de Mayo", "lat": -35.383108, "long": -60.155016, "est_oper": "proyecto", "sag": "Ministerio Ambiente PBA" }, "geometry": { "type": "Point", "coordinates": [ -60.155016666666597, -35.3831083 ] } },
+{ "type": "Feature", "properties": { "fid": 2.0, "id": 1.0, "cod_indec": "6588", "id_cs": "cs2", "municipio": "9 de Julio", "lat": -35.494609, "long": -60.940374, "est_oper": "proyecto", "sag": "Ministerio Ambiente PBA" }, "geometry": { "type": "Point", "coordinates": [ -60.940374, -35.494609 ] } },
+{ "type": "Feature", "properties": { "fid": 3.0, "id": 3.0, "cod_indec": "6049", "id_cs": "cs3", "municipio": "Azul", "lat": -36.793458, "long": -59.818155, "est_oper": "operación", "sag": "Ministerio Ambiente PBA" }, "geometry": { "type": "Point", "coordinates": [ -59.818155555555499, -36.7934583 ] } },
+{ "type": "Feature", "properties": { "fid": 4.0, "id": 4.0, "cod_indec": "6084", "id_cs": "cs4", "municipio": "Benito Juarez", "lat": -37.697466, "long": -59.817155, "est_oper": "proyecto", "sag": "Ministerio Ambiente PBA" }, "geometry": { "type": "Point", "coordinates": [ -59.81715, -37.6974667 ] } },
+{ "type": "Feature", "properties": { "fid": 5.0, "id": 5.0, "cod_indec": "6154", "id_cs": "cs5", "municipio": "Carmen de Areco", "lat": -34.346885, "long": -59.833078, "est_oper": "proyecto", "sag": "Ministerio Ambiente PBA" }, "geometry": { "type": "Point", "coordinates": [ -59.833078, -34.346885 ] } },
+{ "type": "Feature", "properties": { "fid": 6.0, "id": 7.0, "cod_indec": "6547", "id_cs": "cs6", "municipio": "Monte Hermoso", "lat": -38.973195, "long": -61.323544, "est_oper": "proyecto", "sag": "Ministerio Ambiente PBA" }, "geometry": { "type": "Point", "coordinates": [ -61.32354, -38.973195 ] } },
+{ "type": "Feature", "properties": { "fid": 7.0, "id": 6.0, "cod_indec": "6568", "id_cs": "cs7", "municipio": "Navarro", "lat": -34.955244, "long": -59.217735, "est_oper": "proyecto", "sag": "Ministerio Ambiente PBA" }, "geometry": { "type": "Point", "coordinates": [ -59.217735, -34.955244 ] } },
+{ "type": "Feature", "properties": { "fid": 8.0, "id": 8.0, "cod_indec": "6721", "id_cs": "cs8", "municipio": "Salto", "lat": -34.275888, "long": -60.218744, "est_oper": "proyecto", "sag": "Ministerio Ambiente PBA" }, "geometry": { "type": "Point", "coordinates": [ -60.218744, -34.27588 ] } },
+{ "type": "Feature", "properties": { "fid": 9.0, "id": 9.0, "cod_indec": "6826", "id_cs": "cs9", "municipio": "Trenque Lauquen", "lat": -35.930611, "long": -62.691767, "est_oper": "proyecto", "sag": "Ministerio Ambiente PBA" }, "geometry": { "type": "Point", "coordinates": [ -62.691767, -35.93061 ] } },
+{ "type": "Feature", "properties": { "fid": 10.0, "id": 10.0, "cod_indec": "6847", "id_cs": "cs10", "municipio": "Tres Lomas", "lat": -36.450172, "long": -62.840291, "est_oper": "proyecto", "sag": "Ministerio Ambiente PBA" }, "geometry": { "type": "Point", "coordinates": [ -62.840291666666602, -36.4501722 ] } }
+]
+}
