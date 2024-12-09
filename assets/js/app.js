@@ -238,7 +238,18 @@ var basurales_ca = L.geoJson(null, {
   },
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
-      var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Nombre</th><td>" + feature.properties.nombre + "</td></tr>" + "<tr><th>Zona</th><td>" + feature.properties.zonas + "</td></tr>" + "<tr><th>Gestión</th><td>" + feature.properties.gestion + "</td></tr>" + "<tr><th>U_C_R</th><td> "+ feature.properties.u_c_r +"</td></tr>" + "<table>";
+      var content = "<table class='table table-striped table-bordered table-condensed'>" 
+                      + "<tr><th>ID BCA</th><td>" + feature.properties.id_bca + "</td></tr>" 
+                      + "<tr><th>Nombre</th><td>" + feature.properties.nombre + "</td></tr>" 
+                      + "<tr><th>Zonificación</th><td>" + feature.properties.zonificaci + "</td></tr>" 
+                      + "<tr><th>Dominio</th><td>" + feature.properties.dominio + "</td></tr>"
+                      + "<tr><th>Gestión</th><td>" + feature.properties.gestion + "</td></tr>" 
+                      + "<tr><th>Estado</th><td>" + feature.properties.no_activo + "</td></tr>"
+                      + "<tr><th>Superficie total</th><td>" + feature.properties.supt + " Ha?</td></tr>"
+                      + "<tr><th>Superficie impactada</th><td>" + feature.properties.supimpactd + " Ha?</td></tr>"
+                      + "<tr><th>U_C_R</th><td> "+ feature.properties.u_c_r +"</td></tr>" 
+                      + "<tr><th>Zona</th><td>" + feature.properties.zonas + "</td></tr>" 
+                      + "<table>";
       layer.on({
         click: function (e) {
           $("#feature-title").html(feature.properties.nombre);
@@ -264,6 +275,109 @@ $.getJSON("data/basurales_ca.geojson", function (data) {
   map.addLayer(basuralesLayer);
 });
 
+/* Rellenos sanitarios */
+var rellenosLayer = L.geoJson(null);
+var rellenos = L.geoJson(null, {
+  pointToLayer: function (feature, latlng) {
+    return L.marker(latlng, {
+      icon: L.icon({
+        iconUrl: "assets/img/theater.png",
+        iconSize: [24, 28],
+        iconAnchor: [12, 28],
+        popupAnchor: [0, -25]
+      }),
+      title: feature.properties.nombre,
+      riseOnHover: true
+    });
+  },
+  onEachFeature: function (feature, layer) {
+    if (feature.properties) {
+      var content = "<table class='table table-striped table-bordered table-condensed'>" 
+                    + "<tr><th>ID</th><td>" + feature.properties.id_rs + "</td></tr>" 
+                    + "<tr><th>Nombre</th><td>" + feature.properties.nombre + "</td></tr>"
+                    + "<tr><th>Municipio</th><td>" + feature.properties.municipio + "</td></tr>"
+                    + "<tr><th>Dominio</th><td>" + feature.properties.dominio + "</td></tr>"  
+                    + "<tr><th>Gestión</th><td>" + feature.properties.t_gestion + "</td></tr>" 
+                    + "<tr><th>Estado</th><td>" + feature.properties.operativo + "</td></tr>" 
+                    + "<tr><th>Zona</th><td>" + feature.properties.zonas + "</td></tr>"  
+                    + "<tr><th>U_C_R</th><td> "+ feature.properties.u_c_r +"</td></tr>" 
+                    + "<tr><th>Superficie total</th><td>" + feature.properties.supt + "</td></tr>"
+                    + "<tr><th>Superficie afectada</th><td>" + feature.properties.sup_impact + "</td></tr>"
+                    + "<tr><th>Dsiposición</th><td>" + feature.properties.dispo_t_di + "</td></tr>"
+                    + "<table>";
+      layer.on({
+        click: function (e) {
+          $("#feature-title").html(feature.properties.nombre);
+          $("#feature-info").html(content);
+          $("#featureModal").modal("show");
+          highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
+        }
+      });
+      $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/theater.png"></td><td class="feature-name">' + layer.feature.properties.nombre + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+      basuralescaSearch.push({
+        name: layer.feature.properties.nombre,
+        address: layer.feature.properties.zonas,
+        source: "Basurales_CA",
+        id: L.stamp(layer),
+        lat: layer.feature.geometry.coordinates[1],
+        lng: layer.feature.geometry.coordinates[0]
+      });
+    }
+  }
+});
+$.getJSON("data/rellenos_sanitarios.geojson", function (data) {
+  rellenos.addData(data);
+  map.addLayer(rellenosLayer);
+});
+
+/* Celdas sanitarias */
+var celdasLayer = L.geoJson(null);
+var celdas = L.geoJson(null, {
+  pointToLayer: function (feature, latlng) {
+    return L.marker(latlng, {
+      icon: L.icon({
+        iconUrl: "assets/img/theater.png",
+        iconSize: [24, 28],
+        iconAnchor: [12, 28],
+        popupAnchor: [0, -25]
+      }),
+      title: feature.properties.nombre,
+      riseOnHover: true
+    });
+  },
+  onEachFeature: function (feature, layer) {
+    if (feature.properties) {
+      var content = "<table class='table table-striped table-bordered table-condensed'>" 
+                    + "<tr><th>ID</th><td>" + feature.properties.id_cs + "</td></tr>"
+                    + "<tr><th>Municipio</th><td>" + feature.properties.municipio + "</td></tr>" 
+                    + "<tr><th>Estado</th><td>" + feature.properties.est_oper + "</td></tr>" 
+                    + "<tr><th>Fuente</th><td>" + feature.properties.sag + "</td></tr>" 
+                    + "<table>";
+      layer.on({
+        click: function (e) {
+          $("#feature-title").html(feature.properties.nombre);
+          $("#feature-info").html(content);
+          $("#featureModal").modal("show");
+          highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
+        }
+      });
+      $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/theater.png"></td><td class="feature-name">' + layer.feature.properties.nombre + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+      basuralescaSearch.push({
+        name: layer.feature.properties.nombre,
+        address: layer.feature.properties.zonas,
+        source: "Basurales_CA",
+        id: L.stamp(layer),
+        lat: layer.feature.geometry.coordinates[1],
+        lng: layer.feature.geometry.coordinates[0]
+      });
+    }
+  }
+});
+$.getJSON("data/celdas_sanitarias.geojson", function (data) {
+  celdas.addData(data);
+  map.addLayer(celdasLayer);
+});
+
 /* Empty layer placeholder to add to layer control for listening when to add/remove refuncionalizadores to markerClusters layer */
 var refuncionalizadoresLayer = L.geoJson(null);
 var refuncionalizadores = L.geoJson(null, {
@@ -281,7 +395,22 @@ var refuncionalizadores = L.geoJson(null, {
   },
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
-      var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Nombre</th><td>" + feature.properties.nombre_r_s + "</td></tr>" + "<tr><th>Tipo</th><td>" + feature.properties.tipo_r_s + "</td></tr>" + "<tr><th>Domicilio</th><td>" + feature.properties.adr + "</td></tr>" + "<tr><th>Teléfono</th><td>" + feature.properties.telefono + "</td></tr>" + "<table>";
+      var content = "<table class='table table-striped table-bordered table-condensed'>" 
+                    + "<tr><th>ID</th><td>" + feature.properties.idref + "</td></tr>" 
+                    + "<tr><th>Localidad</th><td>" + feature.properties.localidad + "</td></tr>"
+                    + "<tr><th>Nombre</th><td>" + feature.properties.nombre_r_s + "</td></tr>"
+                    + "<tr><th>Tipo de organización</th><td>" + feature.properties.tipo_r_s + "</td></tr>" 
+                    + "<tr><th>Pequeños electrodomésticos</th><td>" + feature.properties.pe_electro + "</td></tr>"
+                    + "<tr><th>Aparatos bajo consumo</th><td>" + feature.properties.apar_bajo_ + "</td></tr>"
+                    + "<tr><th>TICS</th><td>" + feature.properties.tics + "</td></tr>"
+                    + "<tr><th>Grandes electrodomésticos</th><td>" + feature.properties.gdes_elect + "</td></tr>"
+                    + "<tr><th>Herramientas electrónicas</th><td>" + feature.properties.herram_ele + "</td></tr>"
+                    + "<tr><th>Voluminosos</th><td>" + feature.properties.voluminoso + "</td></tr>"
+                    + "<tr><th>Correo</th><td>" + feature.properties.mail + "</td></tr>"
+                    + "<tr><th>Teléfono</th><td>" + feature.properties.telefono + "</td></tr>" 
+                    + "<tr><th>Domicilio</th><td>" + feature.properties.adr + ' ' + feature.properties.adn + "</td></tr>" 
+                    + "<tr><th>Fuente</th><td>" + feature.properties.sag + "</td></tr>"
+                    + "<table>";
       layer.on({
         click: function (e) {
           $("#feature-title").html(feature.properties.nombre_r_s);
@@ -324,6 +453,14 @@ map.on("overlayadd", function(e) {
     markerClusters.addLayer(refuncionalizadores);
     syncSidebar();
   }
+  if (e.layer === rellenosLayer) {
+    markerClusters.addLayer(rellenos);
+    syncSidebar();
+  }
+  if (e.layer === celdasLayer) {
+    markerClusters.addLayer(rellenos);
+    syncSidebar();
+  }
 });
 
 map.on("overlayremove", function(e) {
@@ -333,6 +470,14 @@ map.on("overlayremove", function(e) {
   }
   if (e.layer === refuncionalizadoresLayer) {
     markerClusters.removeLayer(refuncionalizadores);
+    syncSidebar();
+  }
+  if (e.layer === rellenosLayer) {
+    markerClusters.removeLayer(rellenos);
+    syncSidebar();
+  }
+  if (e.layer === celdasLayer) {
+    markerClusters.removeLayer(rellenos);
     syncSidebar();
   }
 });
@@ -363,7 +508,7 @@ var attributionControl = L.control({
 });
 attributionControl.onAdd = function (map) {
   var div = L.DomUtil.create("div", "leaflet-control-attribution");
-  div.innerHTML = "<span class='hidden-xs'>Developed by <a href='http://bryanmcbride.com'>bryanmcbride.com</a> | </span><a href='#' onclick='$(\"#attributionModal\").modal(\"show\"); return false;'>Attribution</a>";
+  div.innerHTML = "<span class='hidden-xs'>Desarrollado por <a href='https://www.ungs.edu.ar/ico/ico'>ICO - UNGS</a> | </span><a href='#' onclick='$(\"#attributionModal\").modal(\"show\"); return false;'>Attribution</a>";
   return div;
 };
 map.addControl(attributionControl);
@@ -417,13 +562,16 @@ var baseLayers = {
 };
 
 var groupedOverlays = {
-  "Puntos de interes": {
-    "<img src='assets/img/theater.png' width='24' height='28'>&nbsp;Basurales_CA": basuralesLayer,
+  "RAEE": {
     "<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Refuncionalizadores": refuncionalizadoresLayer
   },
-  "Capas": {
-    "Partidos": partidos,
-    "Subway Lines": subwayLines
+  "Disposición final": {
+    "<img src='assets/img/theater.png' width='24' height='28'>&nbsp;Basurales_CA": basuralesLayer,
+    "<img src='assets/img/theater.png' width='24' height='28'>&nbsp;Rellenos sanitarios": rellenosLayer,
+    "<img src='assets/img/theater.png' width='24' height='28'>&nbsp;Celdas sanitarias": celdasLayer
+  },
+  "Límites": {
+    "Partidos": partidos
   }
 };
 
