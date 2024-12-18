@@ -34,9 +34,9 @@
           <div class="navbar-icon-container">
             <a href="#" class="navbar-icon pull-right visible-xs" id="nav-btn"><i class="fa fa-bars fa-lg white"></i></a>
             <a href="#" class="navbar-icon pull-right visible-xs" id="sidebar-toggle-btn"><i class="fa fa-search fa-lg white"></i></a>
+            <a class="navbar-brand" href="#">Proyecto FITBA</a>
+            <img src="./assets/img/logoMAPBA_2024.jpg " style="height: 50px;"/>
           </div>
-          <img src="./assets/img/logoMAPBA_2024.jpg " style="height: 50px;"/>
-          <a class="navbar-brand" href="#">Proyecto FITBA</a>
         </div>
         <div class="navbar-collapse collapse">
           <form class="navbar-form navbar-right" role="search">
@@ -53,16 +53,16 @@
                 <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="full-extent-btn"><i class="fa fa-arrows-alt"></i>&nbsp;&nbsp;Zoom a Extensión total</a></li>
                 <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="legend-btn"><i class="fa fa-picture-o"></i>&nbsp;&nbsp;Mostrar Legenda</a></li>
                 <li class="divider hidden-xs"></li>
-                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="login-btn"><i class="fa fa-user"></i>&nbsp;&nbsp;Login</a></li>
               </ul>
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" id="downloadDrop" href="#" role="button" data-toggle="dropdown"><i class="fa fa-cloud-download white"></i>&nbsp;&nbsp;Descargar <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="data/partidos.geojson" download="partidos.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Partidos</a></li>
-                  <li><a href="data/subways.geojson" download="subways.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Subway Lines</a></li>
-                  <li><a href="data/DOITT_THEATER_01_13SEPT2010.geojson" download="theaters.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Basurales_CA</a></li>
-                  <li><a href="data/DOITT_MUSEUM_01_13SEPT2010.geojson" download="museums.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Museums</a></li>
+                  <li><a href="data/basurales_ca.geojson" download="basurales_ca.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Basurales a cielo abierto</a></li>
+                  <li><a href="data/celdas_sanitarias.geojson" download="celdas_sanitarias.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Celdassanitarias</a></li>
+                  <li><a href="data/refuncionalizadores_raee.geojson" download="refuncionalizadores_raee.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Refuncionalizadores RAEE</a></li>
+                  <li><a href="data/rellenos_sanitarios.geojson" download="rellenos_sanitarios.geojson" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Rellenos sanitarios</a></li>
                 </ul>
             </li>
             <li class="hidden-xs"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="list-btn"><i class="fa fa-list white"></i>&nbsp;&nbsp;Lista PDI</a></li>
@@ -123,7 +123,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Welcome to the BootLeaf template!</h4>
+            <h4 class="modal-title">Proyecto FITBA 2023 - ATLAS de la gestión de residuos en la Provincia de Buenos Aires</h4>
           </div>
           <div class="modal-body">
             <ul class="nav nav-tabs nav-justified" id="aboutTabs">
@@ -131,76 +131,82 @@
               <li><a href="#contact" data-toggle="tab"><i class="fa fa-envelope"></i>&nbsp;Contacto</a></li>
               <li><a href="#disclaimer" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Descargo</a></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe"></i>&nbsp;Metadata <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe"></i>&nbsp;Metadatos <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#boroughs-tab" data-toggle="tab">Partidos</a></li>
-                  <li><a href="#subway-lines-tab" data-toggle="tab">Subway Lines</a></li>
-                  <li><a href="#theaters-tab" data-toggle="tab">Basurales_CA</a></li>
-                  <li><a href="#museums-tab" data-toggle="tab">Museums</a></li>
+                  <li><a href="#partidos_mt" data-toggle="tab">Partidos</a></li>
+                  <li><a href="#basuralesca_mt" data-toggle="tab">Basurales_CA</a></li>
+                  <li><a href="#celdassanitares_mt" data-toggle="tab">Celdas sanitarias</a></li>
+                  <li><a href="#refuncionalizadores_mt" data-toggle="tab">Refuncionalizadores RAEE</a></li>
+                  <li><a href="#rellenossanitarios_mt" data-toggle="tab">Rellenos sanitarios</a></li>
                 </ul>
               </li>
             </ul>
             <div class="tab-content" id="aboutTabsContent">
               <div class="tab-pane fade active in" id="about">
-                <p>A simple, responsive template for building web mapping applications with <a href="http://getbootstrap.com/">Bootstrap 3</a>, <a href="http://leafletjs.com/" target="_blank">Leaflet</a>, and <a href="http://twitter.github.io/typeahead.js/" target="_blank">typeahead.js</a>. Open source, MIT licensed, and available on <a href="https://github.com/bmcbride/bootleaf" target="_blank">GitHub</a>.</p>
+                <p>Este visor de mapas se desarrolla en el marco del proyecto “Atlas de la gestión de los residuos de
+                  la provincia de Buenos Aires”. <br> El proyecto es financiado por el Fondo de Innovación Tecnológica de
+                  Buenos Aires 2023, y participan del mismo investigadores-docentes del Área de Tecnologías de
+                  Información Geográfica y Análisis Espacial de la Universidad Nacional de General Sarmiento y el
+                  equipo de la Dirección Provincial de Planificación e Innovación de la Subsecretaría de Residuos
+                  Sólidos Urbanos y Economía Circular del Ministerio de Ambiente de la PBA. <br>
+                  El objetivo del visor de mapas es facilitar el acceso a la información referida a la gestión de los
+                  residuos sólidos urbanos en la PBA, y los diversos aspectos que componen el circuito de los
+                  residuos.</p>
                 <div class="panel panel-primary">
-                  <div class="panel-heading">Features</div>
+                  <div class="panel-heading">Integrantes del proyecto</div>
                   <ul class="list-group">
-                    <li class="list-group-item">Fullscreen mobile-friendly map template with responsive navbar and modal placeholders</li>
-                    <li class="list-group-item">jQuery loading of external GeoJSON files</li>
-                    <li class="list-group-item">Logical multiple layer marker clustering via the <a href="https://github.com/Leaflet/Leaflet.markercluster" target="_blank">leaflet marker cluster plugin</a></li>
-                    <li class="list-group-item">Elegant client-side multi-layer feature search with autocomplete using <a href="http://twitter.github.io/typeahead.js/" target="_blank">typeahead.js</a></li>
-                    <li class="list-group-item">Responsive sidebar feature list synced with map bounds, which includes sorting and filtering via <a href="http://listjs.com/" target="_blank">list.js</a></li>
-                    <li class="list-group-item">Marker icons included in grouped layer control via the <a href="https://github.com/ismyrnow/Leaflet.groupedlayercontrol" target="_blank">grouped layer control plugin</a></li>
+                    <li class="list-group-item">Francisco Suarez - Coordinador de proyecto</li>
+                    <li class="list-group-item">María Teresa Heras - Asesora</li>
+                    <li class="list-group-item">Cecilia Andrea Munafó - Asistencia técnica</li>
+                    <li class="list-group-item">Andrea Pamela Flores - Dirección de Proyecto</li>
+                    <li class="list-group-item">Marcela Rivarola y Benitez - Investigadora</li>
+                    <li class="list-group-item">Federico Wahlberg - Asistencia técnica</li>
+                    <li class="list-group-item">Florencia Cuevas - Asistencia técnica</li>
+                    <li class="list-group-item">Alicia Andrea Ferreyra Jofre - Técnica</li>
+                    <li class="list-group-item">Alberto Andrés Juarez - Técnico</li>
+                    <li class="list-group-item">Diana Carolina Fonnegra Mora - Técnica</li>
                   </ul>
                 </div>
               </div>
               <div id="disclaimer" class="tab-pane fade text-danger">
-                <p>The data provided on this site is for informational and planning purposes only.</p>
-                <p>Absolutely no accuracy or completeness guarantee is implied or intended. All information on this map is subject to such variations and corrections as might result from a complete title search and/or accurate field survey.</p>
+                <p><b>Aviso Legal - Uso de Datos Abiertos</b></p>
+                <p>Se pone a disposición del público los datos abiertos relacionados con el proyecto "Atlas de la gestión de residuos en la Provincia de Buenos Aires", de conformidad con los principios de transparencia y acceso a la información.<br>
+                  Estos datos se distribuyen bajo licencia abierta, permitiendo su uso, reutilización, redistribución y adaptación, salvo indicación en contrario.<br>
+                  No obstante: <br>
+                  <b>Ausencia de Garantías:</b> No se garantiza la exactitud, integridad, actualidad o adecuación de los datos para usos específicos. Los datos se ofrecen "tal como están", sin garantía de ningún tipo, explícita o implícita. <br>
+                  <b>Responsabilidad</b>: El [Nombre del Organismo] no asume responsabilidad alguna por los daños, perjuicios o inconvenientes derivados del uso, interpretación o reutilización de los datos. Los usuarios son responsables de verificar la idoneidad de los datos para sus propósitos específicos.<br>
+                  <b>Modificaciones y Disponibilidad</b>: Se reserva el derecho de modificar, actualizar o discontinuar la disponibilidad de los datos en cualquier momento, sin previo aviso.<br>
+                  <b>Reconocimiento de la Fuente</b>: Se recomienda a los usuarios citar adecuadamente la fuente de los datos al utilizarlos en publicaciones, productos o servicios.<br>
+                  Al acceder o utilizar estos datos, el usuario acepta las condiciones anteriores. En caso de dudas o consultas, puede contactar con <a href="mailto:munafoc@ambiente.gba.gob.ar">Cecilia Munafo</a>.</p>
               </div>
               <div class="tab-pane fade" id="contact">
                 <form id="contact-form">
                   <div class="well well-sm">
                     <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="first-name">First Name:</label>
-                          <input type="text" class="form-control" id="first-name">
-                        </div>
-                        <div class="form-group">
-                          <label for="last-name">Last Name:</label>
-                          <input type="text" class="form-control" id="last-email">
-                        </div>
-                        <div class="form-group">
-                          <label for="email">Email:</label>
-                          <input type="text" class="form-control" id="email">
-                        </div>
-                      </div>
-                      <div class="col-md-8">
-                        <label for="message">Message:</label>
-                        <textarea class="form-control" rows="8" id="message"></textarea>
-                      </div>
                       <div class="col-md-12">
-                        <p>
-                          <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal">Submit</button>
-                        </p>
+                        <div class="form-group">
+                          <label for="first-name">Contacto:</label>
+                          <p>Puede contactar con <a href="mailto:munafoc@ambiente.gba.gob.ar">Cecilia Munafo</a> </p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </form>
               </div>
-              <div class="tab-pane fade" id="boroughs-tab">
-                <p>Borough data courtesy of <a href="http://www.nyc.gov/html/dcp/pdf/bytes/nybbwi_metadata.pdf" target="_blank">New York City Department of City Planning</a></p>
+              <div class="tab-pane fade" id="partidos_mt">
+                <p>Límite de partidos de la Provincia de Buenos Aires, fuente <a href="https://geosata.ambiente.gba.gob.ar/catalogue/#/dataset/110" target="_blank">GeoSATA</a></p>
               </div>
-              <div class="tab-pane fade" id="subway-lines-tab">
-                <p><a href="http://spatialityblog.com/2010/07/08/mta-gis-data-update/#datalinks" target="_blank">MTA Subway data</a> courtesy of the <a href="http://www.urbanresearch.org/about/cur-components/cuny-mapping-service" target="_blank">CUNY Mapping Service at the Center for Urban Research</a></p>
+              <div class="tab-pane fade" id="basuralesca_mt">
+                <p>Basurales a Cielo Abierto, fuente <a href="https://geosata.ambiente.gba.gob.ar/catalogue/#/dataset/191" target="_blank">GeoSATA</a></p>
               </div>
-              <div class="tab-pane fade" id="theaters-tab">
-                <p>Theater data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Theaters/kdu2-865w" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
+              <div class="tab-pane fade" id="celdassanitares_mt">
+                <p>Celdas Sanitarias, fuente <a href="https://geosata.ambiente.gba.gob.ar/catalogue/#/dataset/200" target="_blank">GeoSATA</a></p>
               </div>
-              <div class="tab-pane fade" id="museums-tab">
-                <p>Museum data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
+              <div class="tab-pane fade" id="refuncionalizadores_mt">
+                <p>Refuncionalizadores RAEE, fuente <a href="https://geosata.ambiente.gba.gob.ar/catalogue/#/dataset/193" target="_blank">GeoSata</a></p>
+              </div>
+              <div class="tab-pane fade" id="rellenossanitarios_mt">
+                <p>Rellenos Sanitarios, fuente <a href="https://geosata.ambiente.gba.gob.ar/catalogue/#/dataset/211" target="_blank">GeoSATA</a></p>
               </div>
             </div>
           </div>
@@ -223,35 +229,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Login</h4>
-          </div>
-          <div class="modal-body">
-            <form id="contact-form">
-              <fieldset>
-                <div class="form-group">
-                  <label for="name">Username:</label>
-                  <input type="text" class="form-control" id="username">
-                </div>
-                <div class="form-group">
-                  <label for="email">Password:</label>
-                  <input type="password" class="form-control" id="password">
-                </div>
-              </fieldset>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary" data-dismiss="modal">Login</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->

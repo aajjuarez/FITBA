@@ -95,7 +95,7 @@ function syncSidebar() {
   basurales_ca.eachLayer(function (layer) {
     if (map.hasLayer(basuralesLayer)) {
       if (map.getBounds().contains(layer.getLatLng())) {
-        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/theater.png"></td><td class="feature-name">' + layer.feature.properties.nombre + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"></td><td class="feature-name">' + layer.feature.properties.nombre + '_BCA</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       }
     }
   });
@@ -103,7 +103,7 @@ function syncSidebar() {
   refuncionalizadores.eachLayer(function (layer) {
     if (map.hasLayer(refuncionalizadoresLayer)) {
       if (map.getBounds().contains(layer.getLatLng())) {
-        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/museum.png"></td><td class="feature-name">' + layer.feature.properties.nombre_r_s + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"></td><td class="feature-name">' + layer.feature.properties.nombre_r_s + '_RAEE</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       }
     }
   });
@@ -117,19 +117,14 @@ function syncSidebar() {
 }
 
 /* Basemap Layers */
-var cartoLight = L.tileLayer("https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png", {
+var argenmap = L.tileLayer.wms('https://wms.ign.gob.ar/geoserver/capabaseargenmap/gwc/service/wms?', {
   maxZoom: 19,
-  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a>'
+  format: 'image/png',
+  layers: "capabaseargenmap",
+  attribution: '&copy; <a href="https://www.ign.gob.ar/AreaServicios/Argenmap/Introduccion">Argenmap</a> IGN; <a href="https://www.boletinoficial.gob.ar/detalleAviso/primera/268574/20220816">Acerca del mapa base</a>'
 });
-var usgsImagery = L.layerGroup([L.tileLayer("http://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}", {
+var satelital = L.layerGroup([L.tileLayer("https://mt3.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}", {
   maxZoom: 15,
-}), L.tileLayer.wms("http://raster.nationalmap.gov/arcgis/services/Orthoimagery/USGS_EROS_Ortho_SCALE/ImageServer/WMSServer?", {
-  minZoom: 16,
-  maxZoom: 19,
-  layers: "0",
-  format: 'image/jpeg',
-  transparent: true,
-  attribution: "Aerial Imagery courtesy USGS"
 })]);
 
 /* Overlay Layers */
@@ -144,10 +139,12 @@ var highlightStyle = {
 var partidos = L.geoJson(null, {
   style: function (feature) {
     return {
-      color: "black",
-      fill: false,
+      color: "gray",
+      fill: true,
+      fillOpacity: 0.01,
       opacity: 1,
-      clickable: false
+      weight: 1.5,
+      clickable: true
     };
   },
   onEachFeature: function (feature, layer) {
@@ -163,56 +160,6 @@ $.getJSON("data/partidos.geojson", function (data) {
   partidos.addData(data);
 });
 
-//Create a color dictionary based off of subway route_id
-var subwayColors = {"1":"#ff3135", "2":"#ff3135", "3":"ff3135", "4":"#009b2e",
-    "5":"#009b2e", "6":"#009b2e", "7":"#ce06cb", "A":"#fd9a00", "C":"#fd9a00",
-    "E":"#fd9a00", "SI":"#fd9a00","H":"#fd9a00", "Air":"#ffff00", "B":"#ffff00",
-    "D":"#ffff00", "F":"#ffff00", "M":"#ffff00", "G":"#9ace00", "FS":"#6e6e6e",
-    "GS":"#6e6e6e", "J":"#976900", "Z":"#976900", "L":"#969696", "N":"#ffff00",
-    "Q":"#ffff00", "R":"#ffff00" };
-
-var subwayLines = L.geoJson(null, {
-  style: function (feature) {
-      return {
-        color: subwayColors[feature.properties.route_id],
-        weight: 3,
-        opacity: 1
-      };
-  },
-  onEachFeature: function (feature, layer) {
-    if (feature.properties) {
-      var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Division</th><td>" + feature.properties.Division + "</td></tr>" + "<tr><th>Line</th><td>" + feature.properties.Line + "</td></tr>" + "<table>";
-      layer.on({
-        click: function (e) {
-          $("#feature-title").html(feature.properties.Line);
-          $("#feature-info").html(content);
-          $("#featureModal").modal("show");
-
-        }
-      });
-    }
-    layer.on({
-      mouseover: function (e) {
-        var layer = e.target;
-        layer.setStyle({
-          weight: 3,
-          color: "#00FFFF",
-          opacity: 1
-        });
-        if (!L.Browser.ie && !L.Browser.opera) {
-          layer.bringToFront();
-        }
-      },
-      mouseout: function (e) {
-        subwayLines.resetStyle(e.target);
-      }
-    });
-  }
-});
-$.getJSON("data/subways.geojson", function (data) {
-  subwayLines.addData(data);
-});
-
 /* Single marker cluster layer to hold all clusters */
 var markerClusters = new L.MarkerClusterGroup({
   spiderfyOnMaxZoom: true,
@@ -222,18 +169,28 @@ var markerClusters = new L.MarkerClusterGroup({
 });
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove basurales_ca to markerClusters layer */
+
+function getColor(superficie) {
+  if (superficie <= 10) return '#ffebeb';
+  if (superficie <= 19) return '#ffb0b0';
+  if (superficie <= 28) return '#ff7676';
+  if (superficie <= 38) return '#ff3b3b';
+  if (superficie <= 47) return '#ff0000';
+  return '#31a354';  
+}
+
 var basuralesLayer = L.geoJson(null);
 var basurales_ca = L.geoJson(null, {
   pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, {
-      icon: L.icon({
-        iconUrl: "assets/img/theater.png",
-        iconSize: [24, 28],
-        iconAnchor: [12, 28],
-        popupAnchor: [0, -25]
-      }),
-      title: feature.properties.nombre,
-      riseOnHover: true
+    return L.circleMarker(latlng,{
+      color: "black",
+      fill: true,
+      fillColor: getColor(feature.properties.supimpactd),
+      fillOpacity: 0.8,
+      opacity: 1,
+      weight: 1,
+      clickable: true,
+      radius: feature.properties.supimpactd 
     });
   },
   onEachFeature: function (feature, layer) {
@@ -260,7 +217,7 @@ var basurales_ca = L.geoJson(null, {
       });
       $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/img/theater.png"></td><td class="feature-name">' + layer.feature.properties.nombre + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       basuralescaSearch.push({
-        name: layer.feature.properties.nombre,
+        name: layer.feature.properties.nombre + '_BCA',
         address: layer.feature.properties.zonas,
         source: "Basurales_CA",
         id: L.stamp(layer),
@@ -276,18 +233,27 @@ $.getJSON("data/basurales_ca.geojson", function (data) {
 });
 
 /* Rellenos sanitarios */
+
+function getColorRellenos(estado) {
+  if (estado == 'activo') return '#0c0507';
+  if (estado == 'construcción') return '#28bceb';
+  if (estado == 'no activo') return '#a4fc3c';
+  if (estado == 'proyecto') return '#fb7e21';
+  return '#31a354';  
+}
+
 var rellenosLayer = L.geoJson(null);
 var rellenos = L.geoJson(null, {
   pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, {
-      icon: L.icon({
-        iconUrl: "assets/img/theater.png",
-        iconSize: [24, 28],
-        iconAnchor: [12, 28],
-        popupAnchor: [0, -25]
-      }),
-      title: feature.properties.nombre,
-      riseOnHover: true
+    return L.circleMarker(latlng,{
+      color: "gray",
+      fill: true,
+      fillColor: getColorRellenos(feature.properties.operativo),
+      fillOpacity: 0.8,
+      opacity: 1,
+      weight: 1,
+      clickable: true,
+      radius: 10
     });
   },
   onEachFeature: function (feature, layer) {
@@ -321,7 +287,7 @@ var rellenos = L.geoJson(null, {
         id: L.stamp(layer),
         lat: layer.feature.geometry.coordinates[1],
         lng: layer.feature.geometry.coordinates[0]
-      });
+      }); 
     }
   }
 });
@@ -331,18 +297,41 @@ $.getJSON("data/rellenos_sanitarios.geojson", function (data) {
 });
 
 /* Celdas sanitarias */
+
+//Para crear hexágonos en lugar de círculos
+function hexagon(center, radius) {
+  const points = [];
+  for (let i = 0; i < 6; i++) {
+      const angle = (Math.PI / 3) * i; // Dividir el círculo en 6 partes (60 grados)
+      const x = center.lng + radius * Math.cos(angle) / 111320; // Ajuste para longitud
+      const y = center.lat + radius * Math.sin(angle) / 110574; // Ajuste para latitud
+      points.push([y, x]);
+  }
+  points.push(points[0]); // Cierra el hexágono
+  return points;
+}
+
+function getColorCeldas(estado) {
+  if (estado == 'operación') return '#c44bf4';
+  if (estado == 'proyecto') return '#fc4f16';
+  return '#31a354';  
+}
+
 var celdasLayer = L.geoJson(null);
 var celdas = L.geoJson(null, {
   pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, {
-      icon: L.icon({
-        iconUrl: "assets/img/theater.png",
-        iconSize: [24, 28],
-        iconAnchor: [12, 28],
-        popupAnchor: [0, -25]
-      }),
-      title: feature.properties.nombre,
-      riseOnHover: true
+    const radius = 1000;
+    const hexPoints = hexagon(latlng,radius);
+
+    return L.circleMarker(latlng,{
+      color: "gray",
+      fill: true,
+      fillColor: getColorCeldas(feature.properties.est_oper),
+      fillOpacity: 0.8,
+      opacity: 1,
+      weight: 1,
+      clickable: true,
+      radius: 10
     });
   },
   onEachFeature: function (feature, layer) {
@@ -379,18 +368,27 @@ $.getJSON("data/celdas_sanitarias.geojson", function (data) {
 });
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove refuncionalizadores to markerClusters layer */
+
+function getColorRefun(tipo) {
+  if (tipo == 'Coop') return '#30123b';
+  if (tipo == 'Institución') return '#28bceb';
+  if (tipo == 'SA') return '#a4fc3c';
+  if (tipo == 'SRL') return '#fb7e21';
+  return '#31a354';  
+}
+
 var refuncionalizadoresLayer = L.geoJson(null);
 var refuncionalizadores = L.geoJson(null, {
   pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, {
-      icon: L.icon({
-        iconUrl: "assets/img/museum.png",
-        iconSize: [24, 28],
-        iconAnchor: [12, 28],
-        popupAnchor: [0, -25]
-      }),
-      title: feature.properties.nombre_r_s,
-      riseOnHover: true
+    return L.circleMarker(latlng,{
+      color: "gray",
+      fill: true,
+      fillColor: getColorRefun(feature.properties.tipo_r_s),
+      fillOpacity: 0.8,
+      opacity: 1,
+      weight: 1,
+      clickable: true,
+      radius: 10
     });
   },
   onEachFeature: function (feature, layer) {
@@ -438,7 +436,7 @@ $.getJSON("data/refuncionalizadores_raee.geojson", function (data) {
 map = L.map("map", {
   zoom: 10,
   center: [40.702222, -73.979378],
-  layers: [cartoLight, partidos, markerClusters, highlight],
+  layers: [argenmap, partidos, markerClusters, highlight],
   zoomControl: false,
   attributionControl: false
 });
@@ -458,7 +456,7 @@ map.on("overlayadd", function(e) {
     syncSidebar();
   }
   if (e.layer === celdasLayer) {
-    markerClusters.addLayer(rellenos);
+    markerClusters.addLayer(celdas);
     syncSidebar();
   }
 });
@@ -477,7 +475,7 @@ map.on("overlayremove", function(e) {
     syncSidebar();
   }
   if (e.layer === celdasLayer) {
-    markerClusters.removeLayer(rellenos);
+    markerClusters.removeLayer(celdas);
     syncSidebar();
   }
 });
@@ -508,7 +506,7 @@ var attributionControl = L.control({
 });
 attributionControl.onAdd = function (map) {
   var div = L.DomUtil.create("div", "leaflet-control-attribution");
-  div.innerHTML = "<span class='hidden-xs'>Desarrollado por <a href='https://www.ungs.edu.ar/ico/ico'>ICO - UNGS</a> | </span><a href='#' onclick='$(\"#attributionModal\").modal(\"show\"); return false;'>Attribution</a>";
+  div.innerHTML = "<span class='hidden-xs'>Desarrollado por <a href='https://www.ungs.edu.ar/ico/ico'>ICO - UNGS</a> | </span><a href='#' onclick='$(\"#attributionModal\").modal(\"show\"); return false;'>Atribución</a>";
   return div;
 };
 map.addControl(attributionControl);
@@ -557,18 +555,18 @@ if (document.body.clientWidth <= 767) {
 }
 
 var baseLayers = {
-  "Carto": cartoLight,
-  "Satelital": usgsImagery
+  "ArgenMap": argenmap,
+  "Satelital": satelital
 };
 
 var groupedOverlays = {
   "RAEE": {
-    "<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Refuncionalizadores": refuncionalizadoresLayer
+    "Refuncionalizadores": refuncionalizadoresLayer
   },
   "Disposición final": {
-    "<img src='assets/img/theater.png' width='24' height='28'>&nbsp;Basurales_CA": basuralesLayer,
-    "<img src='assets/img/theater.png' width='24' height='28'>&nbsp;Rellenos sanitarios": rellenosLayer,
-    "<img src='assets/img/theater.png' width='24' height='28'>&nbsp;Celdas sanitarias": celdasLayer
+    "Basurales_CA": basuralesLayer,
+    "Rellenos sanitarios": rellenosLayer,
+    "Celdas sanitarias": celdasLayer
   },
   "Límites": {
     "Partidos": partidos
@@ -686,7 +684,7 @@ $(document).one("ajaxStop", function () {
     displayKey: "nombre",
     source: basuralescaBH.ttAdapter(),
     templates: {
-      header: "<h4 class='typeahead-header'><img src='assets/img/theater.png' width='24' height='28'>&nbsp;Basurales_CA</h4>",
+      header: "<h4 class='typeahead-header'>Basurales_CA</h4>",
       suggestion: Handlebars.compile(["{{nombre}}<br>&nbsp;<small>{{zonas}}</small>"].join(""))
     }
   }, {
@@ -694,7 +692,7 @@ $(document).one("ajaxStop", function () {
     displayKey: "name",
     source: museumsBH.ttAdapter(),
     templates: {
-      header: "<h4 class='typeahead-header'><img src='assets/img/museum.png' width='24' height='28'>&nbsp;Refuncionalizadores</h4>",
+      header: "<h4 class='typeahead-header'>Refuncionalizadores</h4>",
       suggestion: Handlebars.compile(["{{name}}<br>&nbsp;<small>{{address}}</small>"].join(""))
     }
   }, {
