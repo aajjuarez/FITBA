@@ -1,2 +1,2 @@
 # FITBA
- Mapa interactivo FITBE - Geosata
+ Mapa interactivo FITBA - Geosata
